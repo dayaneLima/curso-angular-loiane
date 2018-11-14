@@ -1,0 +1,43 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav">
+      <li class="nav-item" 
+        [class.active]="aba == 'home'" 
+        (click)="aba = 'home'">
+        <a class="nav-link" href="#">Home</a>
+      </li>
+      <li class="nav-item" 
+        [class.active]="aba == 'mapa'"
+        (click)="aba = 'mapa'">
+        <a class="nav-link" href="#">Mapa</a>
+      </li>
+      <li class="nav-item" 
+        [class.active]="aba == 'lista'"
+        (click)="aba = 'lista'">
+        <a class="nav-link" href="#">Lista</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container" [ngSwitch]="aba" >
+  <p *ngSwitchCase="'mapa'" >Modo Mapa Ativado</p>
+  <p *ngSwitchCase="'lista'" >Modo Lista Ativado</p>
+  <p *ngSwitchDefault >Home</p>
+</div>
+
+<!-- <br><br>
+
+<h5>Removendo o * e usando template</h5>
+
+<div class="container" [ngSwitch]="aba" >
+  <template [ngSwitchCase]="'mapa'">
+      <p>Modo Mapa Ativado</p>
+  </template>
+  <template [ngSwitchCase]="'lista'">
+      <p>Modo Lista Ativado</p>
+  </template>
+  <template [ngSwitchCase]="'home'" ngSwitchDefault>
+      <p>Home</p>
+  </template>
+</div> -->

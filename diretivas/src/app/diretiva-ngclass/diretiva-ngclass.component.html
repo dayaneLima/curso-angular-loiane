@@ -1,0 +1,19 @@
+<h5>Property Binding</h5>
+<h1>
+  <i  class="fa-star" 
+     [class.fa]="meuFavorito" 
+     [class.far]="!meuFavorito" 
+     (click)="onClick()"></i>
+</h1>
+
+<br><br>
+
+<h5>ngClass</h5>
+<h1>
+    <i  class="fa-star" 
+      [ngClass]="{
+        'fa': meuFavorito,
+        'far': !meuFavorito
+      }"
+       (click)="onClick()"></i>
+  </h1>
