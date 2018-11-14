@@ -19,6 +19,15 @@ export class CursosComponent implements OnInit {
 
   ngOnInit() {
     this.cursos = this.cursosService.getCursos();
+
+    this.cursosService.emitirCursoCriado.subscribe(
+      curso => console.log(curso, "esse nao funciona pq o criar curso e o receber-curso compartilham do mesmo service e esse não")
+    );
+
+    CursosService.criouNovoCurso.subscribe(
+      curso => { this.cursos.push(curso); console.log("funfa com static",curso); }
+    );
+
   }
 
 }
