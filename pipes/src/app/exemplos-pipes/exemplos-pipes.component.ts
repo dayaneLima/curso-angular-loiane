@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, interval } from 'rxjs';
+import { map, flatMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-exemplos-pipes',
@@ -26,6 +28,12 @@ export class ExemplosPipesComponent implements OnInit {
   livros: string[] = ["Código Limpo", "DDD"];
 
   filtro: string;
+
+  valorAsync = new Promise((resolve, reject) => {
+    setTimeout(() => { resolve('Valor assíncrono') }, 2000 )
+  });
+
+  valorAsync2 = interval(2000).pipe(map(x => 'Valor assíncrono 2'));
 
   constructor() { }
 
