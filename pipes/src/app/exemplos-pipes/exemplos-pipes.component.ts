@@ -12,7 +12,7 @@ export class ExemplosPipesComponent implements OnInit {
   //(QUANDO DEIXA JÁ UM FITLRO PREENCHIDO E ADD UM QUE CORRESPONDE 
   //AO FILTRO NÃO APARECE, SÓ SE FITLRAR DE NOV})
 
-  //PIPE IMPURO OLHA
+  //PIPE IMPURO OLHA AS MUDANÇAS
 
   livro: any = {
     titulo: "Código limpo",
@@ -34,6 +34,19 @@ export class ExemplosPipesComponent implements OnInit {
 
   addLivro(livro: string){
     this.livros.push(livro);
+  }
+
+  obterLivros(){
+    if(this.livros.length === 0 || this.filtro === undefined || this.filtro.trim() == ''){
+      return this.livros;
+    }
+
+    return this.livros.filter( (v) => { 
+      if(v.toLocaleLowerCase().indexOf(this.filtro.toLocaleLowerCase()) != -1){
+        return true;
+      }
+      return false;
+    });
   }
 
 }
