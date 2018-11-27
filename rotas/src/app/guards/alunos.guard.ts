@@ -9,8 +9,10 @@ export class AlunosGuard implements  CanActivateChild{
         state: RouterStateSnapshot): Observable<boolean> | boolean {
             console.log("alunos guard");
             if(state.url.includes('editar')){
-                alert('Usuário sem acesso');
-                return of(false);
+                // alert('Usuário sem acesso');
+                // return of(false);
+                alert('Olá');
+                return of(true);
             }
 
             return true;
