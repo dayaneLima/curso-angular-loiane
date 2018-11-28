@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app.routing.module';
 import { CursosGuard } from './guards/cursos.guard';
 import { AlunosGuard } from './guards/alunos.guard';
 import { AuthGuard } from './guards/auth.guard';
+import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao-encontrada.component';
 
 // import { CursosModule } from './cursos/cursos.module';
 // import { AlunosModule } from './alunos/alunos.module';
@@ -25,6 +26,7 @@ import { AuthGuard } from './guards/auth.guard';
     AppComponent,
     HomeComponent,
     LoginComponent,
+    PaginaNaoEncontradaComponent,
     // CursosComponent,
     // CursoDetalheComponent,
     // CursoNaoEncontradoComponent
