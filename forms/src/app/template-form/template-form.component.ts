@@ -9,8 +9,8 @@ export class TemplateFormComponent implements OnInit {
 
   //usado apenas para iniciar o valor na tela - se alterar na tela náo altera aqui pois lá está usando [ngModel] ao invés de [(ngModel)]
   usuario: any = {
-    nome: 'Dayane',
-    email: 'dayane@email.com' 
+    nome: '',
+    email: '' 
   };
 
   constructor() { }
