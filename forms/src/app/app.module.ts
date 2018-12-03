@@ -4,19 +4,21 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { TemplateFormComponent } from './template-form/template-form.component';
+// import { TemplateFormComponent } from './template-form/template-form.component';
 import { DataFormComponent } from './data-form/data-form.component';
+import { TemplateFormModule } from './template-form/template-form.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TemplateFormComponent,
+    // TemplateFormComponent,
     DataFormComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    TemplateFormModule
   ],
   providers: [],
   bootstrap: [AppComponent]
