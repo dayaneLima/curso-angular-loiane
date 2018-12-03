@@ -5,9 +5,13 @@
     <!-- <input type="text" class="form-control" id="nome" placeholder="Nome" name="nome" ngModel > -->
     <!-- <input type="text" class="form-control" id="nome" placeholder="Nome" name="nome" [(ngModel)]="usuario.nome" > -->
     <input type="text" class="form-control" id="nome" placeholder="Nome" 
-      name="nome" [ngModel]="usuario.nome" required #nome>
-      <div>
+      name="nome" [ngModel]="usuario.nome" required #nome="ngModel" 
+      [class.is-invalid]="!nome.valid && nome.touched">
+      <!-- <div>
         {{ nome.className }}
+      </div> -->
+      <div *ngIf="!nome.valid && nome.touched" class="invalid-feedback" >
+        Nome é obrigatório
       </div>
   </div>
 
@@ -16,7 +20,12 @@
     <!-- <input type="email" class="form-control" id="email" placeholder="nome@email.com" name="email" ngModel > -->
     <!-- <input type="email" class="form-control" id="email" placeholder="nome@email.com" name="email" [(ngModel)]="usuario.email" > -->
     <input type="email" class="form-control" id="email" placeholder="nome@email.com" 
-      name="email" [ngModel]="usuario.email" required email>
+      name="email" [ngModel]="usuario.email" required email #email="ngModel" 
+      [class.is-invalid]="!email.valid && email.touched">
+
+      <div *ngIf="!email.valid && email.touched" class="invalid-feedback" >
+        E-mail inválido
+      </div>
   </div>
 
   <button type="submit" class="btn btn-primary">Submit</button>
