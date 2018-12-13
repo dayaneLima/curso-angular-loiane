@@ -12,7 +12,7 @@ export class CampoControlErroComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {console.log("dsfsdf");
+  ngOnInit() {
   }
 
 }
