@@ -4,15 +4,18 @@
     <div class="form-group col-sm-12">
         <label for="nome">Nome</label>
         <input type="text" class="form-control" id="nome" placeholder="Nome" 
-        formControlName="nome" required >
+        formControlName="nome" required [ngClass]="aplicaCssErro('nome')" >
+        <app-campo-control-erro [mostrarErro]="verificaValidTouched('nome')" msgErro="Nome é obrigatório" ></app-campo-control-erro>
     </div>            
   </div>
-
+  
   <div class="form-row">    
     <div class="form-group col-sm-12">
         <label for="email">E-mail</label>
         <input type="email" class="form-control" id="email" placeholder="nome@email.com" 
-          formControlName="email" required email>
+          formControlName="email" required email [ngClass]="aplicaCssErro('email')">
+          <app-campo-control-erro [mostrarErro]="verificaValidTouched('email')" msgErro="E-mail é obrigatório" ></app-campo-control-erro>
+          <app-campo-control-erro [mostrarErro]="verificaEmailInvalido()" msgErro="E-mail inválido" ></app-campo-control-erro>
       </div>
   </div>
   
