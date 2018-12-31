@@ -1,4 +1,6 @@
 {
+  "enable": false,
+  "jsEnable ": false,
   "rulesDirectory": [
     "node_modules/codelyzer"
   ],
