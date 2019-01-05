@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -12,10 +12,10 @@ export class TemplateFormComponent implements OnInit {
   //usado apenas para iniciar o valor na tela - se alterar na tela náo altera aqui pois lá está usando [ngModel] ao invés de [(ngModel)]
   usuario: any = {
     nome: '',
-    email: '' 
+    email: ''
   };
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
   }
@@ -25,7 +25,6 @@ export class TemplateFormComponent implements OnInit {
         console.log(this.usuario);
 
         this.http.post('https://httpbin.org/post', JSON.stringify(form.value))
-        .pipe(map(res => res))
         .subscribe(dados => {
             console.log(dados);
             form.form.reset();//reseta o formulário
@@ -41,17 +40,16 @@ export class TemplateFormComponent implements OnInit {
       'is-invalid': this.verificaValidTouched(campo)
     }
   }
-  
+
   consultaCEP(cep, formulario){
       cep = cep.replace(/\D/g, '');//somente dígitos
       if(cep != ""){
           var validacep = /^[0-9]{8}$/;//cep com 8 digitos numéricos
           if(validacep.test(cep)){
-            
+
               this.resetaDadosForm(formulario);
 
               this.http.get(`//viacep.com.br/ws/${cep}/json`)
-                .pipe(map(dados => dados.json()))
                 .subscribe(dados => this.populaDadosForm(dados, formulario));
           }
       }
@@ -73,7 +71,7 @@ export class TemplateFormComponent implements OnInit {
       //         estado: dados.uf
       //     }
       // });
-    
+
       //Passa somente os atributos que deseja alterar
       formulario.form.patchValue({
           endereco: {
@@ -83,8 +81,8 @@ export class TemplateFormComponent implements OnInit {
               cidade: dados.localidade,
               estado: dados.uf
           }
-      });      
-  }  
+      });
+  }
 
   resetaDadosForm(formulario){
       formulario.form.patchValue({
