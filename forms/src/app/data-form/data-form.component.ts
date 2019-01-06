@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { DropdownService } from './../shared/services/dropdown.service';
 import { EstadoBr } from '../shared/models/estado-br.model';
+import { ConsultaCepService } from '../shared/services/consulta-cep.service';
 
 @Component({
   selector: 'app-data-form',
@@ -16,7 +17,8 @@ export class DataFormComponent implements OnInit {
   public formulario: FormGroup;
   public estados: EstadoBr[];
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient, private dropdownService: DropdownService) { }
+  constructor(private formBuilder: FormBuilder, private http: HttpClient,
+    private dropdownService: DropdownService, private cepService: ConsultaCepService) { }
 
   ngOnInit() {
     this.dropdownService.getEstadosBr()
@@ -121,17 +123,8 @@ resetaDadosForm() {
 
   consultaCEP() {
     let cep = this.formulario.get('endereco.cep').value;
-
-    cep = cep.replace(/\D/g, ''); // somente dígitos
-    if (cep != '') {
-        let validacep = /^[0-9]{8}$/; // cep com 8 digitos numéricos
-        if(validacep.test(cep)){
-
-            this.resetaDadosForm();
-
-            this.http.get(`//viacep.com.br/ws/${cep}/json`)
-              .subscribe(dados => this.populaDadosForm(dados));
-        }
+    if (cep != null && cep !== "") {
+      this.cepService.consultaCEP(cep).subscribe(dados => this.populaDadosForm(dados));
     }
   }
 
