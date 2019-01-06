@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 import { DropdownService } from './../shared/services/dropdown.service';
 import { EstadoBr } from '../shared/models/estado-br.model';
@@ -15,14 +16,21 @@ import { ConsultaCepService } from '../shared/services/consulta-cep.service';
 export class DataFormComponent implements OnInit {
 
   public formulario: FormGroup;
-  public estados: EstadoBr[];
+  public estados: Observable<EstadoBr[]>;
+  // public estados: EstadoBr[];
 
   constructor(private formBuilder: FormBuilder, private http: HttpClient,
     private dropdownService: DropdownService, private cepService: ConsultaCepService) { }
 
   ngOnInit() {
-    this.dropdownService.getEstadosBr()
-      .subscribe(dados => { this.estados = dados; console.log(this.estados); });
+    //No item do html que usa o estados (o select estados) é colocado o pipe async,
+    //que já faz o subscribe e espera obter o item pra fazer o foreach
+    //e já faz o unsubscribe sozinho
+    //Ex.: <option *ngFor="let estado of estados | async" [value]="estado.sigla" >{{estado.nome}}</option>
+    this.estados =  this.dropdownService.getEstadosBr();
+
+    // this.dropdownService.getEstadosBr()
+    //   .subscribe(dados => { this.estados = dados; });
 
     // this.formulario = new FormGroup({
     //   nome: new FormControl(null),
