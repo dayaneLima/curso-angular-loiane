@@ -17,6 +17,7 @@ export class DataFormComponent implements OnInit {
 
   public formulario: FormGroup;
   public estados: Observable<EstadoBr[]>;
+  public cargos: any[];
   // public estados: EstadoBr[];
 
   constructor(private formBuilder: FormBuilder, private http: HttpClient,
@@ -28,6 +29,8 @@ export class DataFormComponent implements OnInit {
     //e já faz o unsubscribe sozinho
     //Ex.: <option *ngFor="let estado of estados | async" [value]="estado.sigla" >{{estado.nome}}</option>
     this.estados =  this.dropdownService.getEstadosBr();
+
+    this.cargos = this.dropdownService.getCargos();
 
     // this.dropdownService.getEstadosBr()
     //   .subscribe(dados => { this.estados = dados; });
@@ -48,7 +51,10 @@ export class DataFormComponent implements OnInit {
         bairro: [null, Validators.required],
         cidade: [null, Validators.required],
         estado: [null, Validators.required]
-      })
+      }),
+
+      cargo: [null]
+
     });
 
   }
@@ -112,22 +118,22 @@ export class DataFormComponent implements OnInit {
             estado: dados.uf
         }
     });
-}
+  }
 
-resetaDadosForm() {
-  this.formulario.patchValue({
-    endereco: {
-        rua: null,
-        complemento: null,
-        bairro: null,
-        cidade: null,
-        estado: null
-    }
-  });
+  resetaDadosForm() {
+    this.formulario.patchValue({
+      endereco: {
+          rua: null,
+          complemento: null,
+          bairro: null,
+          cidade: null,
+          estado: null
+      }
+    });
 
-  this.formulario.get('nome').setValue('exemplo de setar valor em um único campo');
+    this.formulario.get('nome').setValue('exemplo de setar valor em um único campo');
 
-}
+  }
 
   consultaCEP() {
     let cep = this.formulario.get('endereco.cep').value;
@@ -135,5 +141,15 @@ resetaDadosForm() {
       this.cepService.consultaCEP(cep).subscribe(dados => this.populaDadosForm(dados));
     }
   }
+
+  setarCargo() {
+    const cargo = { nome: 'Dev', nivel: 'Pleno', desc: 'Dev Pl' };
+    this.formulario.get('cargo').setValue(cargo);
+  }
+
+  compararCargos(obj1, obj2) {
+    return obj1 && obj2 ? (obj1.nome == obj2.nome && obj1.nivel == obj2.nivel) : (obj1 === obj2);
+  }
+
 
 }
