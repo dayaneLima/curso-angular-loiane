@@ -21,4 +21,13 @@ export class DropdownService {
     ];
   }
 
+  getTecnologias() {
+    return [
+      { nome: 'dotnet', desc: '.Net' },
+      { nome: 'angular', desc: 'Angular' },
+      { nome: 'php', desc: 'PHP' },
+      { nome: 'typescript', desc: 'TypeScript' }
+    ];
+  }
+
 }
