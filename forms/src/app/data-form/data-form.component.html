@@ -101,6 +101,16 @@
       </div>
   </div>
 
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" id="termos" formControlName="termos"  [ngClass]="aplicaCssErro('termos')">
+        <label class="custom-control-label" for="termos">Aceito os termos</label>
+        <app-campo-control-erro [mostrarErro]="verificaValidTouched('termos')" msgErro="Por favor aceite os termos" ></app-campo-control-erro>
+      </div>
+    </div>
+  </div>
+
   <button type="submit" class="btn btn-primary">Submit</button>
   &nbsp;
   <button type="button" class="btn btn-default" (click)="resetar()">Cancelar</button>
