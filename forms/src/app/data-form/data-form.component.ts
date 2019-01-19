@@ -20,6 +20,7 @@ export class DataFormComponent implements OnInit {
   public cargos: any[];
   public tecnologias: any[];
   public newsletterOp: any[];
+  public frameworks = ['Angular', 'Vue', 'React', 'Sencha'];
   // public estados: EstadoBr[];
 
   constructor(private formBuilder: FormBuilder, private http: HttpClient,
@@ -60,7 +61,8 @@ export class DataFormComponent implements OnInit {
       cargo: [null],
       tecnologias: [null],
       newsletter: ['s'],
-      termos: [null, Validators.pattern('true')]
+      termos: [null, Validators.pattern('true')],
+      frameworks: this.buildFrameworks()
     });
 
   }
@@ -68,8 +70,19 @@ export class DataFormComponent implements OnInit {
   onSubmit() {
     console.log(this.formulario);
 
+    let valueSubmit = Object.assign({}, this.formulario.value);
+
+    //pega os valores do array de checkbox - que é true para maracado e false para desmarcado, e monta um só com a descrição dos marcados
+    valueSubmit = Object.assign(valueSubmit, {
+      frameworks: valueSubmit.frameworks
+      .map((v, i) => v ? this.frameworks[i] : null)
+      .filter(v => v !== null)
+    });
+
+    console.log(valueSubmit);
+
     if (this.formulario.valid){
-        this.http.post('https://httpbin.org/post', JSON.stringify(this.formulario.value))
+        this.http.post('https://httpbin.org/post', JSON.stringify(valueSubmit))
         .subscribe(dados => {
           console.log(dados);
           // reseta o form
@@ -161,5 +174,9 @@ export class DataFormComponent implements OnInit {
     this.formulario.get('tecnologias').setValue(['dotnet', 'angular', 'php']);
   }
 
+  buildFrameworks() {
+    const values = this.frameworks.map(v => new FormControl(false));
+    return this.formBuilder.array(values);
+  }
 
 }

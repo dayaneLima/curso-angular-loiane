@@ -111,6 +111,20 @@
     </div>
   </div>
 
+  <div class="form-row">
+    <div class="form-group col-md-12">
+      <label for="frameworks">Frameworks</label>
+      <div  id="frameworks">
+        <div class="custom-control custom-checkbox"
+            formArrayName="frameworks"
+            *ngFor="let item of formulario.get('frameworks').controls; let i = index" >
+          <input type="checkbox" id="{{ frameworks[i] }}" class="custom-control-input" [formControlName]="i" >
+          <label class="custom-control-label" for="{{ frameworks[i] }}"> {{ frameworks[i] }}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <button type="submit" class="btn btn-primary">Submit</button>
   &nbsp;
   <button type="button" class="btn btn-default" (click)="resetar()">Cancelar</button>
