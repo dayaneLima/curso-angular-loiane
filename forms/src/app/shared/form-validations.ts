@@ -1,8 +1,10 @@
-import { FormArray, FormControl } from '@angular/forms';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 
 export class FormValidations {
 
-  public static requiredMinCheckbox(min: Number = 1) {
+  //Pra não fazer na mão, pode baiar libs de validação como essa: https://www.npmjs.com/package/ng2-validation
+
+  public static requiredMinCheckbox(min: number = 1) {
     const validator = (formArray: FormArray) => {
       // const values = formArray.controls;
       // let totalChecked = 0;
@@ -27,6 +29,31 @@ export class FormValidations {
       return validacep.test(cep) ? null : { cepInvalido: true };
     }
     return null;
+  }
+
+  public static equalsTo(otherField: string) {
+    const validator = (formControl: FormControl) => {
+      if(otherField == null) {
+        throw new Error('É necessário informar um campo.');
+      }
+
+      if(!formControl.root || !(<FormGroup>formControl.root).controls){
+        return null;
+      }
+
+      const field = (<FormGroup>formControl.root).get(otherField);
+
+      if(!field) {
+        throw new Error('É necessário informar um campo válido.')
+      }
+
+      if(field.value !== formControl.value) {
+        return { equalsTo : otherField };
+      }
+
+      return null;
+    };
+    return validator;
   }
 
 }
