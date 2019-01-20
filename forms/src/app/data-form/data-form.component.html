@@ -121,6 +121,7 @@
           <input type="checkbox" id="{{ frameworks[i] }}" class="custom-control-input" [formControlName]="i" >
           <label class="custom-control-label" for="{{ frameworks[i] }}"> {{ frameworks[i] }}</label>
         </div>
+        <app-campo-control-erro [mostrarErro]="!formulario.get('frameworks').valid" msgErro="Selecione 1 opção" ></app-campo-control-erro>
       </div>
     </div>
   </div>
