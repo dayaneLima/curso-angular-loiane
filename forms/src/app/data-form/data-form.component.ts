@@ -50,7 +50,7 @@ export class DataFormComponent implements OnInit {
       nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
       email: [null, [Validators.required, Validators.email]],
       endereco: this.formBuilder.group({
-        cep: [null, Validators.required],
+        cep: [null, [Validators.required, FormValidations.cepValidator]],
         numero: [null],
         complemento: [null],
         rua: [null, Validators.required],
@@ -109,6 +109,10 @@ export class DataFormComponent implements OnInit {
 
   resetar(){
     this.formulario.reset();
+  }
+
+  verificaRequired(campo: string) {
+    return this.formulario.get(campo).hasError('required') && (this.formulario.get(campo).touched || this.formulario.get(campo).dirty);
   }
 
   verificaValidTouched(campo: string) {
