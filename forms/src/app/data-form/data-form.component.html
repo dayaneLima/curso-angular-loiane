@@ -16,6 +16,9 @@
           formControlName="email" [ngClass]="aplicaCssErro('email')">
           <app-campo-control-erro [mostrarErro]="verificaValidTouched('email')" msgErro="E-mail é obrigatório" ></app-campo-control-erro>
           <app-campo-control-erro [mostrarErro]="verificaEmailInvalido()" msgErro="E-mail inválido" ></app-campo-control-erro>
+          <app-campo-control-erro [mostrarErro]="formulario.get('email').status === 'PENDING'" msgErro="Validando e-mail..." ></app-campo-control-erro>
+          <app-campo-control-erro [mostrarErro]="formulario.get('email').status === 'VALID'" msgErro="E-mail válido" ></app-campo-control-erro>
+          <app-campo-control-erro [mostrarErro]="formulario.get('email').hasError('emailInvalido')" msgErro="E-mail já existe" ></app-campo-control-erro>
       </div>
   </div>
 

@@ -8,6 +8,7 @@ import { DropdownService } from './../shared/services/dropdown.service';
 import { EstadoBr } from '../shared/models/estado-br.model';
 import { ConsultaCepService } from '../shared/services/consulta-cep.service';
 import { FormValidations } from '../shared/form-validations';
+import { VerificaEmailService } from './services/verifica-email.service';
 
 @Component({
   selector: 'app-data-form',
@@ -25,9 +26,13 @@ export class DataFormComponent implements OnInit {
   // public estados: EstadoBr[];
 
   constructor(private formBuilder: FormBuilder, private http: HttpClient,
-    private dropdownService: DropdownService, private cepService: ConsultaCepService) { }
+    private dropdownService: DropdownService, private cepService: ConsultaCepService,
+    private verificaEmailService: VerificaEmailService) { }
 
   ngOnInit() {
+
+    // this.verificaEmailService.verificarEmail('email@email.com').subscribe();
+
     //No item do html que usa o estados (o select estados) é colocado o pipe async,
     //que já faz o subscribe e espera obter o item pra fazer o foreach
     //e já faz o unsubscribe sozinho
@@ -48,7 +53,7 @@ export class DataFormComponent implements OnInit {
 
     this.formulario = this.formBuilder.group({
       nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
-      email: [null, [Validators.required, Validators.email]],
+      email: [null, [Validators.required, Validators.email], [this.validarEmail.bind(this)]],
       confirmarEmail: [null, [FormValidations.equalsTo('email')]],
       endereco: this.formBuilder.group({
         cep: [null, [Validators.required, FormValidations.cepValidator]],
@@ -183,6 +188,11 @@ export class DataFormComponent implements OnInit {
   buildFrameworks() {
     const values = this.frameworks.map(v => new FormControl(false));
     return this.formBuilder.array(values, FormValidations.requiredMinCheckbox(1));
+  }
+
+  validarEmail(formControl: FormControl) {
+      return this.verificaEmailService.verificarEmail(formControl.value)
+        .pipe(map(emailExiste => emailExiste ? { emailInvalido: true } : null));
   }
 
 }
