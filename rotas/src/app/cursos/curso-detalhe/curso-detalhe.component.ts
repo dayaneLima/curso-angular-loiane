@@ -12,7 +12,6 @@ import { CursosService } from '../cursos.service';
 export class CursoDetalheComponent implements OnInit {
 
   id: number;
-  inscricao: Subscription;
   curso: any;
 
   constructor(private route: ActivatedRoute, private router: Router, private cursosService: CursosService) {
