@@ -74,15 +74,17 @@
           </div>
           <div class="form-group col-md-4">
               <label for="cidade" class="control-label">Cidade</label>
-              <input type="text" class="form-control" id="cidade" placeholder="cidade"
-              formControlName="cidade" [ngClass]="aplicaCssErro('endereco.cidade')">
+              <select class="form-control" id="cidade" placeholder="cidade"
+                formControlName="cidade" [ngClass]="aplicaCssErro('endereco.cidade')">
+                <option *ngFor="let cidade of cidades" [value]="cidade.nome" >{{cidade.nome}}</option>
+              </select>
               <app-campo-control-erro [mostrarErro]="verificaValidTouched('endereco.cidade')" msgErro="Cidade é obrigatória" ></app-campo-control-erro>
           </div>
           <div class="form-group col-md-3">
               <label for="estado" class="control-label">Estado</label>
               <select class="form-control" id="estado" placeholder="estado"
                 formControlName="estado" [ngClass]="aplicaCssErro('endereco.estado')">
-                <option *ngFor="let estado of estados | async" [value]="estado.sigla" >{{estado.nome}}</option>
+                <option *ngFor="let estado of estados" [value]="estado.sigla" >{{estado.nome}}</option>
               </select>
               <app-campo-control-erro [mostrarErro]="verificaValidTouched('endereco.estado')" msgErro="Estado é obrigatório" ></app-campo-control-erro>
           </div>
