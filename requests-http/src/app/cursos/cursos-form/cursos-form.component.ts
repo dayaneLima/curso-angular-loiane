@@ -23,6 +23,7 @@ export class CursosFormComponent implements OnInit {
 
   ngOnInit() {
 
+    // ** Forma mais verbosa **
     // this.route.params.subscribe(
     //   (params: any) => {
     //     const id = params['id'];
@@ -33,30 +34,34 @@ export class CursosFormComponent implements OnInit {
     //   }
     // );
 
-    this.route.params
-    .pipe(
-      map((params: any) => params['id']),
-      switchMap( id => this.service.loadById(id))
-      // switchMap(cursos => obterAulas)
-    )
-    .subscribe((curso: Curso) => this.updateForm(curso));
+    // ** Forma mais enxuta e elegante **
+    // this.route.params
+    // .pipe(
+    //   map((params: any) => params['id']),
+    //   switchMap( id => this.service.loadById(id))
+    //   // switchMap(cursos => obterAulas)
+    // )
+    // .subscribe((curso: Curso) => this.updateForm(curso));
 
     // concatMap -> ordem da requisição importa
     // mergeMap -> ordem nao importa
     // exhaustMap -> casos de login
 
+    // ** Forma com resolver de rota (guards): requests-http\src\app\cursos\guards\curso-resolver.guard.ts **
+    const curso = this.route.snapshot.data['curso'];
+
     this.form = this.fb.group({
-      id: [null],
-      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]]
+      id: [curso.id],
+      nome: [curso.nome, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]]
     });
   }
 
-  updateForm(curso: Curso) {
-    this.form.patchValue({
-      id: curso.id,
-      nome: curso.nome
-    });
-  }
+  // updateForm(curso: Curso) {
+  //   this.form.patchValue({
+  //     id: curso.id,
+  //     nome: curso.nome
+  //   });
+  // }
 
   hasError(field: string) {
     return this.form.get(field).errors;
