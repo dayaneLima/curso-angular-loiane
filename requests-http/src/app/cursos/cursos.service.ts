@@ -28,4 +28,17 @@ export class CursosService {
   loadById(id: number) {
     return this.http.get<Curso>(`${this.API}/${id}`).pipe(take(1));
   }
+
+  update(curso: Curso) {
+    return this.http.put(`${this.API}/${curso.id}`, curso).pipe(take(1));
+  }
+
+  save(curso: Curso) {
+    if (curso.id) {
+      return this.update(curso);
+    }
+
+    return this.create(curso);
+  }
+
 }

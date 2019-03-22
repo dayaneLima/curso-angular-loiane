@@ -2,7 +2,7 @@
   "cursos": [
     {
       "id": 1,
-      "nome": "Angular"
+      "nome": "Angular 6"
     },
     {
       "id": 3,
@@ -11,6 +11,10 @@
     {
       "nome": "Arquitetura cabbuliosa",
       "id": 4
+    },
+    {
+      "id": 5,
+      "nome": ".Net Core"
     }
   ]
 }

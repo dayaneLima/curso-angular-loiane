@@ -72,13 +72,21 @@ export class CursosFormComponent implements OnInit {
     console.log(this.form.value);
     if (this.form.valid) {
       console.log('submit');
-      this.service.create(this.form.value).subscribe(
+
+      let msgSuccess = 'curso criado com sucesso!';
+      let msgError = 'Erro ao criar curso, tente novamente!';
+      if (this.form.value.id) {
+        msgSuccess = 'curso atualizado com sucesso!';
+        msgError = 'Erro ao atualizar curso, tente novamente!';
+      }
+
+      this.service.save(this.form.value).subscribe(
         success => {
-          this.modal.showAlertSuccess('curso criado com sucesso!');
+          this.modal.showAlertSuccess(msgSuccess);
           this.location.back();
         },
-        error => this.modal.showAlertDanger('Erro ao criar curso, tente novamente!'),
-        () => console.log('request completo')
+        error => this.modal.showAlertDanger(msgError),
+        () => console.log('registro gravado')
       );
     }
   }
